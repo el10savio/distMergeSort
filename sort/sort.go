@@ -17,19 +17,17 @@ func sliceSort(elements []int) []int {
 
 // merge ...
 func merge(elements1, elements2 []int) []int {
-	// Check if either array is empty - if so return the other
+	if len(elements1) == 0 {
+		return elements2
+	}
 
-	// Get bigger array size to allocate
+	if len(elements2) == 0 {
+		return elements1
+	}
 
-	// Iterate over bigger array & get smaller element
+	if elements1[0] < elements2[0] {
+		return append([]int{elements1[0]}, merge(elements1[1:], elements2)...)
+	}
 
-	// Push smaller element to merged list
-
-	// Redo until any array gets empty
-
-	// Merge the other non empty array
-
-	// Return merged array
-
-	return []int{}
+	return append([]int{elements2[0]}, merge(elements1, elements2[1:])...)
 }
