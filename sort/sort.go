@@ -3,31 +3,31 @@ package sort
 import "sort"
 
 // Sort ...
-func Sort(elements []int) []int {
-	if len(elements) == 0 {
+func Sort(list []int) []int {
+	if len(list) == 0 {
 		return []int{}
 	}
-	return sliceSort(elements)
+	return sliceSort(list)
 }
 
 // sliceSort ...
-func sliceSort(elements []int) []int {
-	return sort.IntSlice(elements)
+func sliceSort(list []int) []int {
+	return sort.IntSlice(list)
 }
 
 // merge ...
-func merge(elements1, elements2 []int) []int {
-	if len(elements1) == 0 {
-		return elements2
+func merge(list1, list2 []int) []int {
+	if len(list1) == 0 {
+		return list2
 	}
 
-	if len(elements2) == 0 {
-		return elements1
+	if len(list2) == 0 {
+		return list1
 	}
 
-	if elements1[0] < elements2[0] {
-		return append([]int{elements1[0]}, merge(elements1[1:], elements2)...)
+	if list1[0] < list2[0] {
+		return append([]int{list1[0]}, merge(list1[1:], list2)...)
 	}
 
-	return append([]int{elements2[0]}, merge(elements1, elements2[1:])...)
+	return append([]int{list2[0]}, merge(list1, list2[1:])...)
 }
