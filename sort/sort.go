@@ -7,12 +7,15 @@ func Sort(list []int) []int {
 	if len(list) == 0 {
 		return []int{}
 	}
-	return sliceSort(list)
+
+	sliceSort(list)
+
+	return list
 }
 
 // sliceSort ...
-func sliceSort(list []int) []int {
-	return sort.IntSlice(list)
+func sliceSort(list []int) {
+	sort.Ints(list)
 }
 
 // merge ...
