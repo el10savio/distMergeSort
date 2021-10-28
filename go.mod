@@ -11,3 +11,5 @@ require (
 )
 
 replace github.com/el10savio/distMergeSort/handlers => ../handlers
+
+replace github.com/el10savio/distMergeSort/sort => ../sort
