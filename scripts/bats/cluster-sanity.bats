@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 @test "Check Replicas Count" {
-  count="$(docker ps | grep -c set)"
+  count="$(docker ps | grep -c sort)"
   [ "$count" -eq 3 ]
 }
 
