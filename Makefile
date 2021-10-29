@@ -16,6 +16,10 @@ info:
 	docker ps | grep 'sort'
 	docker network ls | grep sort_network
 
+e2e:
+	@echo "Running E2E Testing On Sort Cluster"	
+	bash scripts/tests.sh
+
 clean:
 	@echo "Cleaning Sort Cluster"
 	bash scripts/teardown.sh
