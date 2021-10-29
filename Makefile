@@ -24,7 +24,7 @@ build:
 	@echo "Building distMergeSort Server"	
 	go build -o bin/distMergeSort main.go
 
-fmt:
+fmt:	
 	@echo "go fmt distMergeSort Server"	
 	go fmt ./...
 
@@ -51,3 +51,7 @@ test:
 shellcheck:
 	@echo "shellcheck distMergeSort Scripts"
 	shellcheck scripts/*.sh
+
+shfmt:
+	@echo "shfmt distMergeSort Scripts"
+	shfmt -i 2 -ci -w -l -bn scripts/*.sh
