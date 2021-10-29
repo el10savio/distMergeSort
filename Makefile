@@ -1,4 +1,25 @@
 
+distMergeSort-build:
+	@echo "Building distMergeSort Docker Image"	
+	docker build -t sort -f Dockerfile .
+
+distMergeSort-run:
+	@echo "Running Single distMergeSort Docker Container"
+	docker run -p 8080:8080 -d sort
+
+provision:
+	@echo "Provisioning Sort Cluster"	
+	bash scripts/provision.sh 3
+
+info:
+	echo "Sort Cluster Nodes"
+	docker ps | grep 'sort'
+	docker network ls | grep sort_network
+
+clean:
+	@echo "Cleaning Sort Cluster"
+	bash scripts/teardown.sh
+
 build:
 	@echo "Building distMergeSort Server"	
 	go build -o bin/distMergeSort main.go
