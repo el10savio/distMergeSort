@@ -28,23 +28,22 @@ if [[ $peers_count -ge 1000 ]]; then
   exit 255
 fi
 
-# Check if port is available and then
-# append to peers starting from 8000
-available_port=8000
-provisioned_ports_count=0
-
 echo "Cleaning previous stale peers"
 docker ps -a | awk '$2 ~ /sort/ {print $1}' | xargs -I {} docker rm -f {}
 docker network rm "$network"
 
 echo "Reserving ports for peers"
 
+# Check if port is available and then
+# append to peers starting from 8000
+provisioned_ports_count=0
+
 for port in {8000..9000}; do
   if [[ provisioned_ports_count -eq peers_count ]]; then
     break
   fi
 
-  netstat -an | grep $port
+	netstat -an | grep $port
   if [[ $? -ne 0 ]]; then
     peers+=($port)
     ((provisioned_ports_count++))
@@ -56,11 +55,7 @@ if [[ provisioned_ports_count -ne peers_count ]]; then
   exit 255
 fi
 
-echo "Reserved ports:" ${peers[*]}
-comma_separated_peers=$(
-  IFS=,
-  echo "${peers[*]}"
-)
+echo "Reserved ports:" "${peers[*]}"
 
 # Docker create peers from peer list
 # and pass PORT = peers[[i]]

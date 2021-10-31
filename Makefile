@@ -54,7 +54,7 @@ test:
 
 shellcheck:
 	@echo "shellcheck distMergeSort Scripts"
-	shellcheck scripts/*.sh
+	shellcheck -f gcc scripts/*.sh
 
 shfmt:
 	@echo "shfmt distMergeSort Scripts"
