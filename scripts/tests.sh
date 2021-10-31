@@ -10,5 +10,8 @@ bats --tap "${scripts_dir}"/bats/cluster-sanity.bats
 echo "Sort Tests"
 bats --tap "${scripts_dir}"/bats/sort.bats
 
+echo "Large Sort Tests"
+bats --tap "${scripts_dir}"/bats/sort-large.bats
+
 echo "Tearing Down Cluster"
 bash "${scripts_dir}"/teardown.sh >/dev/null
