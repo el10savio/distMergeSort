@@ -43,7 +43,7 @@ for port in {8000..9000}; do
     break
   fi
 
-	netstat -an | grep $port
+  netstat -an | grep $port
   if [[ $? -ne 0 ]]; then
     peers+=($port)
     ((provisioned_ports_count++))
