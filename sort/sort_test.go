@@ -10,7 +10,8 @@ import (
 func TestSort(t *testing.T) {
 	for _, testCase := range testSortTestSuite {
 		t.Run(testCase.name, func(t *testing.T) {
-			actualList := Sort(testCase.list)
+			actualList, actualError := Sort(testCase.list)
+			assert.NoError(t, actualError)
 			assert.Equal(t, testCase.expectedList, actualList)
 		})
 	}

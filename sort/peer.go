@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"math"
 	"net/http"
 )
+
+// TODO: Move errors to seperate file
 
 var peers []string
 
@@ -22,7 +24,8 @@ func peerSort(list []int) ([]int, error) {
 	}
 
 	sortedList := []int{}
-	chunks := createChunks(list, len(peers))
+	chunks := createChunks(list, int(math.Ceil(float64(len(list))/float64(len(peers)))))
+	fmt.Println(chunks)
 
 	// For Each Chunk, Send Peer Sort Request
 	for index, chunk := range chunks {
@@ -59,7 +62,7 @@ func sendSortRequest(list []int, peer string) ([]int, error) {
 	}
 
 	url := fmt.Sprintf("http://%s.%s/sort", peer, GetNetwork())
-	JSONPayload, err := json.Marshal(Payload{list})
+	JSONPayload, err := json.Marshal(Payload{Values: list})
 	if err != nil {
 		return []int{}, err
 	}
@@ -78,22 +81,19 @@ func sendSortRequest(list []int, peer string) ([]int, error) {
 }
 
 func processSortResponse(response *http.Response) ([]int, error) {
-	var payload Payload
+	var list []int
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
-		return []int{}, errors.New("received invalid response code")
+		errMessage := fmt.Sprintf("received invalid status code: %d", response.StatusCode)
+		return []int{}, errors.New(errMessage)
 	}
 
-	body, err := ioutil.ReadAll(response.Body)
+	decoder := json.NewDecoder(response.Body)
+	err := decoder.Decode(&list)
 	if err != nil {
 		return []int{}, err
 	}
 
-	err = json.Unmarshal(body, &payload)
-	if err != nil {
-		return []int{}, err
-	}
-
-	return payload.Values, nil
+	return list, nil
 }
