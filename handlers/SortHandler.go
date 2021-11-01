@@ -9,13 +9,6 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// // addBody is the format of the
-// // input JSON body to the
-// // Sort Handler
-// type addBody struct {
-// 	Values []int `json:"values"`
-// }
-
 // SortHandler is the HTTP handler used to sort in
 // values to the sort node in the server
 func SortHandler(w http.ResponseWriter, r *http.Request) {
@@ -30,13 +23,22 @@ func SortHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Add the values into the Set
-	list := sort.Sort(requestBody.Values)
-
-	// DEBUG log in the case of success indicating
-	// the new Set and the values added
+	// DEBUG log to print input list
 	log.WithFields(log.Fields{
-		"input_list":  requestBody.Values,
+		"input_list": requestBody.Values,
+	}).Debug("received list")
+
+	// Sort the values
+	list, err := sort.Sort(requestBody.Values)
+	if err != nil {
+		log.WithFields(log.Fields{"error": err}).Error("failed to sort values")
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// DEBUG log in the case of success
+	// indicating the new sorted list
+	log.WithFields(log.Fields{
 		"sorted_list": list,
 	}).Debug("successful sort")
 

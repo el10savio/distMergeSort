@@ -3,18 +3,17 @@ package sort
 import "sort"
 
 // Sort ...
-func Sort(list []int) []int {
+func Sort(list []int) ([]int, error) {
 	if len(list) == 0 {
-		return []int{}
+		return []int{}, nil
 	}
 
-	if len(list) >= 1000 {
-		list, _ = peerSort(list)
-		return list
+	if len(list) >= 10 {
+		return peerSort(list)
 	}
 
 	sliceSort(list)
-	return list
+	return list, nil
 }
 
 // sliceSort ...

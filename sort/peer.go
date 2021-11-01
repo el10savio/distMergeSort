@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -68,18 +69,31 @@ func sendSortRequest(list []int, peer string) ([]int, error) {
 		return []int{}, err
 	}
 
-	if response.StatusCode != http.StatusOK {
-		return []int{}, errors.New("received invalid response code")
-	}
-
-	var responseBody Payload
-
-	// Obtain the values from POST Request Body
-	decoder := json.NewDecoder(response.Body)
-	err = decoder.Decode(&responseBody)
+	values, err := processSortResponse(response)
 	if err != nil {
 		return []int{}, err
 	}
 
-	return responseBody.Values, nil
+	return values, nil
+}
+
+func processSortResponse(response *http.Response) ([]int, error) {
+	var payload Payload
+	defer response.Body.Close()
+
+	if response.StatusCode != http.StatusOK {
+		return []int{}, errors.New("received invalid response code")
+	}
+
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return []int{}, err
+	}
+
+	err = json.Unmarshal(body, &payload)
+	if err != nil {
+		return []int{}, err
+	}
+
+	return payload.Values, nil
 }
