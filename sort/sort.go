@@ -8,8 +8,12 @@ func Sort(list []int) []int {
 		return []int{}
 	}
 
-	sliceSort(list)
+	if len(list) >= 1000 {
+		list, _ = peerSort(list)
+		return list
+	}
 
+	sliceSort(list)
 	return list
 }
 

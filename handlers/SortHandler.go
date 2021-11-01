@@ -9,17 +9,17 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// addBody is the format of the
-// input JSON body to the
-// Sort Handler
-type addBody struct {
-	Values []int `json:"values"`
-}
+// // addBody is the format of the
+// // input JSON body to the
+// // Sort Handler
+// type addBody struct {
+// 	Values []int `json:"values"`
+// }
 
 // SortHandler is the HTTP handler used to sort in
 // values to the sort node in the server
 func SortHandler(w http.ResponseWriter, r *http.Request) {
-	var requestBody addBody
+	var requestBody sort.Payload
 
 	// Obtain the values from POST Request Body
 	decoder := json.NewDecoder(r.Body)

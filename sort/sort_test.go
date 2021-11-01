@@ -25,3 +25,13 @@ func TestMerge(t *testing.T) {
 		})
 	}
 }
+
+// TestCreateChunks ...
+func TestCreateChunks(t *testing.T) {
+	for _, testCase := range testCreateChunksTestSuite {
+		t.Run(testCase.name, func(t *testing.T) {
+			actualList := createChunks(testCase.list, testCase.chunkSize)
+			assert.ElementsMatch(t, testCase.expectedList, actualList)
+		})
+	}
+}
