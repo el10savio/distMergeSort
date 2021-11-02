@@ -6,7 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// TestSort ...
+// TestSort tests the functionality
+// of the Sort() function
 func TestSort(t *testing.T) {
 	for _, testCase := range testSortTestSuite {
 		t.Run(testCase.name, func(t *testing.T) {
@@ -17,7 +18,8 @@ func TestSort(t *testing.T) {
 	}
 }
 
-// TestMerge ...
+// TestMerge tests the functionality
+// of the merge() function
 func TestMerge(t *testing.T) {
 	for _, testCase := range testMergeTestSuite {
 		t.Run(testCase.name, func(t *testing.T) {
@@ -27,7 +29,8 @@ func TestMerge(t *testing.T) {
 	}
 }
 
-// TestCreateChunks ...
+// TestCreateChunks tests the functionality
+// of the createChunks() function
 func TestCreateChunks(t *testing.T) {
 	for _, testCase := range testCreateChunksTestSuite {
 		t.Run(testCase.name, func(t *testing.T) {
