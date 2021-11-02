@@ -3,7 +3,7 @@ package sort
 import "sort"
 
 // Sort is the handler that decides based on the size
-// of the list wheteher to use a distributed merge sort
+// of the list whether to use a distributed merge sort
 // across the cluster of just sort it in
 // memory on the host node
 func Sort(list []int) ([]int, error) {
