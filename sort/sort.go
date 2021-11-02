@@ -7,11 +7,13 @@ import "sort"
 // across the cluster of just sort it in
 // memory on the host node
 func Sort(list []int) ([]int, error) {
+	const largeSortCount = 100
+
 	if len(list) == 0 {
 		return []int{}, nil
 	}
 
-	if len(list) >= 100 {
+	if len(list) >= largeSortCount {
 		return peerSort(list)
 	}
 

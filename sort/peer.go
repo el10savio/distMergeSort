@@ -75,7 +75,7 @@ func sendSortRequest(list []int, peer string) ([]int, error) {
 	url := fmt.Sprintf("http://%s.%s/sort", peer, GetNetwork())
 	jsonPayload, err := json.Marshal(Payload{Values: list})
 	if err != nil {
-		return []int{}, fmt.Errorf("failed to json marshall list payload: %v", err)
+		return []int{}, fmt.Errorf("failed to json marshall list payload: %w", err)
 	}
 
 	response, err := SendRequest(url, jsonPayload)
@@ -108,7 +108,7 @@ func processSortResponse(response *http.Response) ([]int, error) {
 
 	err := json.NewDecoder(response.Body).Decode(&list)
 	if err != nil {
-		return []int{}, fmt.Errorf("failed to json decode response list: %v", err)
+		return []int{}, fmt.Errorf("failed to json decode response list: %w", err)
 	}
 
 	return list, nil
