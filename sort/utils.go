@@ -58,15 +58,13 @@ func SendRequest(url string, payload []byte) (*http.Response, error) {
 
 	request, err := http.NewRequestWithContext(ctx, "POST", url, bytes.NewBuffer(payload))
 	if err != nil {
-		err = fmt.Errorf("failed to create POST request: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to create POST request: %v", err)
 	}
 	request.Header.Set("Content-Type", "application/json")
 
 	response, err := client.Do(request)
 	if err != nil {
-		err = fmt.Errorf("failed to send POST request: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to send POST request: %v", err)
 	}
 
 	return response, nil
