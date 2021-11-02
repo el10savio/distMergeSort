@@ -10,7 +10,8 @@ import (
 )
 
 const (
-	// PORT ...
+	// PORT defines the distMergeSort
+	// node server port
 	PORT = "8080"
 )
 
