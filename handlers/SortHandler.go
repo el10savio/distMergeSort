@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/el10savio/distMergeSort/sort"
-
 	log "github.com/sirupsen/logrus"
 )
 

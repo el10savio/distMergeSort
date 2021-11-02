@@ -4,9 +4,8 @@ import (
 	"net/http"
 	"os"
 
-	log "github.com/sirupsen/logrus"
-
 	"github.com/el10savio/distMergeSort/handlers"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
