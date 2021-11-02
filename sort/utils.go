@@ -2,7 +2,7 @@ package sort
 
 import (
 	"bytes"
-	"errors"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -46,7 +46,7 @@ func GetNetwork() string {
 // SendRequest handles sending of an HTTP POST Request
 func SendRequest(url string, payload []byte) (*http.Response, error) {
 	if url == "" {
-		return nil, errors.New("empty url provided")
+		return nil, ErrEmptyURL
 	}
 
 	client := http.Client{
@@ -55,9 +55,16 @@ func SendRequest(url string, payload []byte) (*http.Response, error) {
 
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	if err != nil {
+		err = fmt.Errorf("failed to create POST request: %v", err)
 		return nil, err
 	}
 	request.Header.Set("Content-Type", "application/json")
 
-	return client.Do(request)
+	response, err := client.Do(request)
+	if err != nil {
+		err = fmt.Errorf("failed to send POST request: %v", err)
+		return nil, err
+	}
+
+	return response, nil
 }

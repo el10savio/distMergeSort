@@ -42,7 +42,7 @@ lint:
 
 golanglintci:
 	@echo "golanglintci distMergeSort Server"	
-	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.42.1 golangci-lint run -v
+	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.42.1 golangci-lint run --out-format tab --enable-all
 
 semgrep:
 	@echo "semgrep distMergeSort Server"	
