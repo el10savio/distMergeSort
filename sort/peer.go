@@ -2,13 +2,10 @@ package sort
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"math"
 	"net/http"
 )
-
-// TODO: Move errors to seperate file
 
 var peers []string
 
@@ -20,7 +17,7 @@ func init() {
 // and send's a chunk to each peer
 func peerSort(list []int) ([]int, error) {
 	if len(peers) == 0 {
-		return list, errors.New("no peers available")
+		return list, ErrNoPeers
 	}
 
 	sortedList := []int{}
@@ -58,7 +55,7 @@ func createChunks(slice []int, chunkSize int) [][]int {
 // POST request to the given peer
 func sendSortRequest(list []int, peer string) ([]int, error) {
 	if peer == "" {
-		return []int{}, errors.New("empty peer provided")
+		return []int{}, ErrEmptyPeer
 	}
 
 	url := fmt.Sprintf("http://%s.%s/sort", peer, GetNetwork())
@@ -85,8 +82,7 @@ func processSortResponse(response *http.Response) ([]int, error) {
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
-		errMessage := fmt.Sprintf("received invalid status code: %d", response.StatusCode)
-		return []int{}, errors.New(errMessage)
+		return []int{}, ErrInvalidHTTPStatusCode
 	}
 
 	decoder := json.NewDecoder(response.Body)
