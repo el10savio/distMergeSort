@@ -2,13 +2,16 @@ package sort
 
 import "sort"
 
-// Sort ...
+// Sort is the handler that decides based on the size
+// of the list wheteher to use a distributed merge sort
+// across the cluster of just sort it in
+// memory on the host node
 func Sort(list []int) ([]int, error) {
 	if len(list) == 0 {
 		return []int{}, nil
 	}
 
-	if len(list) >= 10 {
+	if len(list) >= 100 {
 		return peerSort(list)
 	}
 
@@ -16,12 +19,15 @@ func Sort(list []int) ([]int, error) {
 	return list, nil
 }
 
-// sliceSort ...
+// sliceSort uses the standard library sort
+// method to sort the list in place
 func sliceSort(list []int) {
 	sort.Ints(list)
 }
 
-// merge ...
+// merge takes in two sorted lists and recursively
+// merges them together to generate a
+// single merged sorted list
 func merge(list1, list2 []int) []int {
 	if len(list1) == 0 {
 		return list2
