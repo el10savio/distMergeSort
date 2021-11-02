@@ -18,6 +18,7 @@ func Sort(list []int) ([]int, error) {
 	}
 
 	sliceSort(list)
+
 	return list, nil
 }
 

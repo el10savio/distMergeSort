@@ -60,6 +60,7 @@ func SendRequest(url string, payload []byte) (*http.Response, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to create POST request: %w", err)
 	}
+
 	request.Header.Set("Content-Type", "application/json")
 
 	response, err := client.Do(request)
