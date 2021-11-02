@@ -2,6 +2,7 @@ package sort
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"net/http"
 	"os"
@@ -49,11 +50,13 @@ func SendRequest(url string, payload []byte) (*http.Response, error) {
 		return nil, errEmptyURL
 	}
 
+	ctx := context.Background()
+
 	client := http.Client{
 		Timeout: time.Duration(10 * time.Second),
 	}
 
-	request, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
+	request, err := http.NewRequestWithContext(ctx, "POST", url, bytes.NewBuffer(payload))
 	if err != nil {
 		err = fmt.Errorf("failed to create POST request: %v", err)
 		return nil, err
