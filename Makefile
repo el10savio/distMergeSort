@@ -63,3 +63,7 @@ shellcheck:
 shfmt:
 	@echo "shfmt distMergeSort Scripts"
 	shfmt -i 2 -ci -w -l -bn scripts/*.sh
+
+codespell:
+	@echo "checking distMergeSort spellings"
+	codespell
