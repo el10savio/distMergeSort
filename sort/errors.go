@@ -3,8 +3,8 @@ package sort
 import "errors"
 
 var (
-	ErrEmptyURL              = errors.New("empty url provided")
-	ErrEmptyPeer             = errors.New("empty peer provided")
-	ErrNoPeersAvailable      = errors.New("no peers available")
-	ErrInvalidHTTPStatusCode = errors.New("received invalid status code")
+	errEmptyURL              = errors.New("empty url provided")
+	errEmptyPeer             = errors.New("empty peer provided")
+	errNoPeersAvailable      = errors.New("no peers available")
+	errInvalidHTTPStatusCode = errors.New("received invalid status code")
 )

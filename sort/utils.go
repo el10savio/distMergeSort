@@ -46,7 +46,7 @@ func GetNetwork() string {
 // SendRequest handles sending of an HTTP POST Request
 func SendRequest(url string, payload []byte) (*http.Response, error) {
 	if url == "" {
-		return nil, ErrEmptyURL
+		return nil, errEmptyURL
 	}
 
 	client := http.Client{
