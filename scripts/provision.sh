@@ -62,7 +62,7 @@ echo "Reserved ports:" "${peers[*]}"
 echo "Provisioning distSortMerge Docker Cluster"
 
 echo "Building distSortMerge Docker Image"
-docker build -t sort -f Dockerfile .
+DOCKER_BUILDKIT=1 docker build -t sort -f Dockerfile .
 
 if [[ $? -ne 0 ]]; then
   echo "Unable To Build distSortMerge Docker Image"

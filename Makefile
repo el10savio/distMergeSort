@@ -1,7 +1,7 @@
 
 distMergeSort-build:
 	@echo "Building distMergeSort Docker Image"	
-	docker build -t sort -f Dockerfile .
+	DOCKER_BUILDKIT=1 docker build -t sort -f Dockerfile .
 
 distMergeSort-run:
 	@echo "Running Single distMergeSort Docker Container"
