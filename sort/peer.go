@@ -13,8 +13,8 @@ import (
 var peers []string
 
 func init() {
-	// Obtain all the peer in the cluster
-	// and filter out the host node
+	// Obtain all the peers in the cluster
+	// excluding the host node
 	peers = GetPeerListWithoutHost()
 }
 
@@ -49,8 +49,8 @@ func peerSort(list []int) ([]int, error) {
 	return sortedList, nil
 }
 
-// createChunks takes in a slice and chunkSize and
-// splits the slice into chunks of size chunkSize
+// createChunks splits the slice
+// into chunks of size chunkSize
 func createChunks(slice []int, chunkSize int) [][]int {
 	if len(slice) == 0 || chunkSize == 0 {
 		return [][]int{}
@@ -95,7 +95,7 @@ func sendSortRequest(list []int, peer string) ([]int, error) {
 
 // processSortResponse takes in the response
 // from HTTP peer sort request and
-// parses the obtained soted list
+// parses the obtained sorted list
 func processSortResponse(response *http.Response) ([]int, error) {
 	if response == nil {
 		return []int{}, errEmptyResponseReceived
