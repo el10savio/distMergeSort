@@ -2,7 +2,7 @@
 
 # Initialize ENV Variables peers
 # A list of all the ports
-# of the set peers
+# of the sort peers
 declare -a peers=()
 declare -a peer_id_list=()
 
