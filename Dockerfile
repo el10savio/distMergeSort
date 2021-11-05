@@ -14,7 +14,7 @@ RUN go mod graph | awk '{if ($1 !~ "@") print $2}' | xargs go get
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -a -installsuffix cgo -o /go/bin/sort
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -v -a -installsuffix cgo -o /go/bin/sort
 
 
 FROM scratch
