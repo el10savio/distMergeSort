@@ -54,7 +54,7 @@ lint-dockerfile:
 
 test:
 	@echo "Testing distMergeSort Server"	
-	go test -v --cover ./...
+	go test -v -race --cover ./...
 
 shellcheck:
 	@echo "shellcheck distMergeSort Scripts"
